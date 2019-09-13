@@ -1,7 +1,14 @@
 <style>
-
+    #footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        height: 50px;
+        width: 100%;
+        overflow: hidden;
+    }
 </style>
-<div class="bg-secondary">
+<div id="footer" class="bg-secondary">
     <div class="container ">
         <div class="row justify-content-center">
             <div class="col-md-4 text-center">

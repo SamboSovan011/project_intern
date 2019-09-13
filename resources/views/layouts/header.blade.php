@@ -32,7 +32,7 @@
 
             <ul class="nav navbar-nav">
                 <li class="nav-item">
-                    <a href="" class="nav-link">Home</a>
+                    <a href="/" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item">
                     <a href="" class="nav-link">New Arrivals</a>
@@ -44,7 +44,7 @@
                     <a href="" class="nav-link">Service</a>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link"><i class="fas fa-user-plus pr-1"></i>Sign Up</a>
+                <a href="{{route('SignUp')}}" class="nav-link"><i class="fas fa-user-plus pr-1"></i>Sign Up</a>
                 </li>
                 <li class="nav-item">
                     <a href="" class="nav-link"><i class="fas fa-sign-in-alt pr-1"></i>Login</a>

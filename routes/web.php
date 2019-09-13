@@ -11,10 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('frontend.home');
-});
-
+Route::get('/', 'HomeController@index');
+Route::get('/signup', ['as' => 'SignUp', 'uses' => 'HomeController@SignUp']);
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
