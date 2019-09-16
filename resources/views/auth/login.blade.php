@@ -14,6 +14,9 @@
     body {
         background: white;
     }
+    footer{
+        position: absolute !important;
+    }
 </style>
 
 <section id="form-login">
@@ -46,15 +49,17 @@
                 @enderror
 
                 <div class="d-flex form-check">
-                    <input type="checkbox" class="form-check-input" id="keepSignIn">
+                    <input type="checkbox" class="form-check-input" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                     <label class="form-check-label" for="keepSignIn">Remember me</label>
-                    <a class="ml-auto" href="#">Forget Password?</a>
+                    @if(Route::has('password.request'))
+                        <a class="ml-auto" href="{{ route('password.request') }}">Forget Password?</a>
+                    @endif
                 </div>
 
                 <!-- Login button -->
                 <button class="btn btn-info my-4 btn-block" type="submit">Login</button>
                 <div class="d-flex">
-                    <a class="ml-auto" href="{{route('SignUp')}}">Sign Up</a>
+                    <a class="ml-auto" href="{{route('register')}}">Sign Up</a>
                 </div>
 
             </form>
