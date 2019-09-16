@@ -13,5 +13,6 @@
 
 Route::get('/', 'HomeController@index');
 Route::get('/signup', ['as' => 'SignUp', 'uses' => 'HomeController@SignUp']);
-Auth::routes();
+Route::post('/login', ['as' => 'Login', 'uses' => 'HomeController@Login']);
 
+Auth::routes();

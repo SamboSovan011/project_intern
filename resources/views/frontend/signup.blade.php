@@ -3,19 +3,23 @@
 @section('content')
 <style>
     #form-sign-up {
-        margin: 5rem;
-        padding: 2rem;
+        margin: 2rem;
+        padding: 1rem;
     }
 
     .card {
         border: none;
     }
+
+    body {
+        background: white;
+    }
 </style>
 <section id="form-sign-up">
     <div class="container d-flex justify-content-center">
-        <div class="card col-lg-6 shadow">
+        <div class="card col-lg-6">
             <!-- Default form register -->
-            <form class="text-center border border-light p-5" action="#!">
+            <form class="text-center" action="#!">
 
                 <p class="h4 mb-4">Sign up</p>
 
@@ -46,7 +50,9 @@
 
 
 
-
+                <div class="d-flex">
+                    <a href="{{route('Login')}}">Already have accounts?</a>
+                </div>
                 <!-- Sign up button -->
                 <button class="btn btn-info my-4 btn-block" type="submit">Sign in</button>
 
