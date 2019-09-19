@@ -17,7 +17,6 @@ Route::post('/signup', ['as' => 'SignUp', 'uses' => 'HomeController@SignUp']);
 
 Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout');
-
 // Route admin
 Route::get('/admin/login', 'AdminController@showadminloginform');
 Route::post('/admin', ['as' => 'adminlogin', 'uses' => 'AdminController@login']);
