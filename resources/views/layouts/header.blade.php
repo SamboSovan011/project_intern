@@ -60,11 +60,20 @@
                         <a href="#" class="nav-link dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img src="img/account-logo.png" alt="account logo" style="width:1rem; height:1rem;">
                         </a>
+                        @if(Auth::user()->is_admin == 1)
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="{{url('/admin/dashboard')}}">My Dashboard</a>
+                                <a class="dropdown-item" href="#">My Wish List</a>
+                            <a class="dropdown-item" href="{{url('/logout')}}">Log out</a>
+                            </div>
+
+                        @else
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <a class="dropdown-item" href="#">My Profile</a>
                             <a class="dropdown-item" href="#">My Wish List</a>
                         <a class="dropdown-item" href="{{url('/logout')}}">Log out</a>
                         </div>
+                        @endif
                     </li>
                     @else
                     <li class="nav-item {{request()->routeIs('login') ? 'active' : ''}}">

@@ -21,3 +21,6 @@ Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('/admin/login', 'AdminController@showadminloginform');
 Route::post('/admin', ['as' => 'adminlogin', 'uses' => 'AdminController@login']);
 Route::get('/admin/dashboard', 'AdminController@dashboard');
+Route::prefix('/admin/dashboard')->group(function(){
+    Route::get('/slide', ['as' => 'slide', 'uses' => 'AdminController@slide']);
+});
