@@ -1,10 +1,11 @@
 @extends('layouts.app')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 @section('title', 'Potted Pan - Selling Kitchen Utensils')
 @section('content')
+
 <style>
-    .carousel-item {
-        height: 500px;
-    }
+
+
 
     .d-block {
         position: absolute;
@@ -15,10 +16,34 @@
     }
 
     .card-img-top{
-        height: 212.26px !important;
+        /* height: 212.26px !important;
+        margin-right:-20px;
+        margin-left:-20px !important; */
+        width: 100% !important;
+        height: 190px;
+        object-fit: cover;
+    }
+    .card{
+        border: none;
+    }
+    .card:hover{
+
+        -webkit-box-shadow: -1px 9px 40px -12px rgba(0,0,0,0.75);
+        -moz-box-shadow: -1px 9px 40px -12px rgba(0,0,0,0.75);
+        box-shadow: -1px 9px 40px -12px rgba(0, 0, 0, 0.75);
+    }
+
+    .carousel-item {
+        height: 500px;
+        padding: 0;
+    }
+    .carousel-item img{
+        width: 100%;
+        height: 100% !important;
+        object-fit: cover;
     }
 </style>
-<section>
+<section id="slide">
     <div id="CarouselContent" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             <li data-target="#CarouselContent" data-slide-to="0" class="active"></li>
@@ -46,109 +71,109 @@
         </div>
     </div>
 </section>
+
 <section>
-    <div class="container" style="padding-bottom:8rem;">
-        <div class="d-flex justify-content-around" style=" margin-top:8rem;">
-            <div class="card" style="width: 20rem; ">
-                <img class="card-img-top img-fluid" src="img/kitchen-furniture.png" alt="kitchen-furniture">
-                <div class="card-body">
-                    <h5 class="card-title">Kitchen Furniture</h5>
-                    <hr>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse rhoncus in
-                        nisi et tincidunt. Phasellus semper lobortis magna, id lacinia enim hendrerit non. Nunc
-                        ultricies dictum augue, et lacinia metus imperdiet nec. Vestibulum sapien erat, imperdiet non
-                        mauris in, tempor ultrices nisi. Nulla eleifend malesuada nulla, vel fermentum nisi ultrices
-                        vitae. Ut vestibulum gravida enim in eleifend. Sed vel est sit amet est cursus luctus. Maecenas
-                        mattis consequat magna, eget molestie lectus pellentesque ut. Curabitur tempus felis mi, vitae
-                        laoreet massa dictum vel. Suspendisse potenti. Aenean nec dapibus dolor. Quisque ultrices
-                        lobortis lorem, eget tincidunt orci egestas vitae. Nullam posuere bibendum semper. Nullam
-                        pulvinar varius finibus. </p>
+    <div class="container text-center" style="padding-bottom:8rem;">
+            <h3 class="my-5">Product Categories</h3>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-4">
+                <div class="card m-3">
+                    <img class="card-img-top img-fluid" src="img/kitchen-furniture.png" alt="kitchen-furniture">
+                    <div class="card-body">
+                        <h5 class="card-title">Kitchen Furniture</h5>
+                        <hr>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse rhoncus in
+                                    nisi et tincidunt. Phasellus semper lobortis magna, id lacinia enim hendrerit non. Nunc
+                                    ultricies dictum augue, et lacinia metus imperdiet nec.  </p>
+                    </div>
                 </div>
             </div>
-            <div class="card" style="width: 20rem; ">
-                <img class="card-img-top img-fluid" src="img/sink.png" alt="sink and kitchen taps">
-                <div class="card-body">
-                    <h5 class="card-title">Sinks and Kitchen Taps</h5>
-                    <hr>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse rhoncus in
-                        nisi et tincidunt. Phasellus semper lobortis magna, id lacinia enim hendrerit non. Nunc
-                        ultricies dictum augue, et lacinia metus imperdiet nec. Vestibulum sapien erat, imperdiet non
-                        mauris in, tempor ultrices nisi. Nulla eleifend malesuada nulla, vel fermentum nisi ultrices
-                        vitae. Ut vestibulum gravida enim in eleifend. Sed vel est sit amet est cursus luctus. Maecenas
-                        mattis consequat magna, eget molestie lectus pellentesque ut. Curabitur tempus felis mi, vitae
-                        laoreet massa dictum vel. Suspendisse potenti. Aenean nec dapibus dolor. Quisque ultrices
-                        lobortis lorem, eget tincidunt orci egestas vitae. Nullam posuere bibendum semper. Nullam
-                        pulvinar varius finibus. </p>
+            <div class="col-md-4">
+                <div class="card m-3">
+                    <img class="card-img-top img-fluid" src="img/sink.png" alt="sink and kitchen taps">
+                        <div class="card-body">
+                            <h5 class="card-title">Sinks and Kitchen Taps</h5>
+                            <hr>
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse rhoncus in
+                                    nisi et tincidunt. Phasellus semper lobortis magna, id lacinia enim hendrerit non. Nunc
+                                    ultricies dictum augue, et lacinia metus imperdiet nec.  </p>
+                        </div>
                 </div>
             </div>
-            <div class="card" style="width: 20rem;">
+            <div class="col-md-4">
+                <div class="card m-3">
                 <img class="card-img-top img-fluid" src="img/appliance.png" alt="kitchen applainces">
-                <div class="card-body">
+                 <div class="card-body">
                     <h5 class="card-title">Kitchen Appliances</h5>
                     <hr>
                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse rhoncus in
-                        nisi et tincidunt. Phasellus semper lobortis magna, id lacinia enim hendrerit non. Nunc
-                        ultricies dictum augue, et lacinia metus imperdiet nec. Vestibulum sapien erat, imperdiet non
-                        mauris in, tempor ultrices nisi. Nulla eleifend malesuada nulla, vel fermentum nisi ultrices
-                        vitae. Ut vestibulum gravida enim in eleifend. Sed vel est sit amet est cursus luctus. Maecenas
-                        mattis consequat magna, eget molestie lectus pellentesque ut. Curabitur tempus felis mi, vitae
-                        laoreet massa dictum vel. Suspendisse potenti. Aenean nec dapibus dolor. Quisque ultrices
-                        lobortis lorem, eget tincidunt orci egestas vitae. Nullam posuere bibendum semper. Nullam
-                        pulvinar varius finibus. </p>
+                                    nisi et tincidunt. Phasellus semper lobortis magna, id lacinia enim hendrerit non. Nunc
+                                    ultricies dictum augue, et lacinia metus imperdiet nec.  </p>
                 </div>
-            </div>
-        </div>
-        <div class="d-flex justify-content-around" style=" margin-top:8rem;">
-            <div class="card" style="width: 20rem;">
-                <img class="card-img-top img-fluid" src="img/accessories.png" alt="cooking-accessories">
-                <div class="card-body">
-                    <h5 class="card-title">Cooking Accessories</h5>
-                    <hr>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse rhoncus in
-                        nisi et tincidunt. Phasellus semper lobortis magna, id lacinia enim hendrerit non. Nunc
-                        ultricies dictum augue, et lacinia metus imperdiet nec. Vestibulum sapien erat, imperdiet non
-                        mauris in, tempor ultrices nisi. Nulla eleifend malesuada nulla, vel fermentum nisi ultrices
-                        vitae. Ut vestibulum gravida enim in eleifend. Sed vel est sit amet est cursus luctus. Maecenas
-                        mattis consequat magna, eget molestie lectus pellentesque ut. Curabitur tempus felis mi, vitae
-                        laoreet massa dictum vel. Suspendisse potenti. Aenean nec dapibus dolor. Quisque ultrices
-                        lobortis lorem, eget tincidunt orci egestas vitae. Nullam posuere bibendum semper. Nullam
-                        pulvinar varius finibus. </p>
                 </div>
+
             </div>
-            <div class="card" style="width: 20rem; ">
-                <img class="card-img-top img-fluid" src="img/table-accessorie.png" alt="table dining accessories">
-                <div class="card-body">
-                    <h5 class="card-title">Dining Table Accessories</h5>
-                    <hr>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse rhoncus in
-                        nisi et tincidunt. Phasellus semper lobortis magna, id lacinia enim hendrerit non. Nunc
-                        ultricies dictum augue, et lacinia metus imperdiet nec. Vestibulum sapien erat, imperdiet non
-                        mauris in, tempor ultrices nisi. Nulla eleifend malesuada nulla, vel fermentum nisi ultrices
-                        vitae. Ut vestibulum gravida enim in eleifend. Sed vel est sit amet est cursus luctus. Maecenas
-                        mattis consequat magna, eget molestie lectus pellentesque ut. Curabitur tempus felis mi, vitae
-                        laoreet massa dictum vel. Suspendisse potenti. Aenean nec dapibus dolor. Quisque ultrices
-                        lobortis lorem, eget tincidunt orci egestas vitae. Nullam posuere bibendum semper. Nullam
-                        pulvinar varius finibus. </p>
-                </div>
+            <div class="col-md-4">
+                    <div class="card m-3">
+                            <img class="card-img-top img-fluid" src="img/accessories.png" alt="cooking-accessories">
+                            <div class="card-body">
+                                <h5 class="card-title">Cooking Accessories</h5>
+                                <hr>
+                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse rhoncus in
+                                    nisi et tincidunt. Phasellus semper lobortis magna, id lacinia enim hendrerit non. Nunc
+                                    ultricies dictum augue, et lacinia metus imperdiet nec.  </p>
+                            </div>
+                        </div>
             </div>
-            <div class="card" style="width: 20rem;">
-                <img class="card-img-top img-fluid" src="img/bakeware.png" alt="bakeware">
-                <div class="card-body">
-                    <h5 class="card-title">Cookware and Bakeware</h5>
-                    <hr>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse rhoncus in
-                        nisi et tincidunt. Phasellus semper lobortis magna, id lacinia enim hendrerit non. Nunc
-                        ultricies dictum augue, et lacinia metus imperdiet nec. Vestibulum sapien erat, imperdiet non
-                        mauris in, tempor ultrices nisi. Nulla eleifend malesuada nulla, vel fermentum nisi ultrices
-                        vitae. Ut vestibulum gravida enim in eleifend. Sed vel est sit amet est cursus luctus. Maecenas
-                        mattis consequat magna, eget molestie lectus pellentesque ut. Curabitur tempus felis mi, vitae
-                        laoreet massa dictum vel. Suspendisse potenti. Aenean nec dapibus dolor. Quisque ultrices
-                        lobortis lorem, eget tincidunt orci egestas vitae. Nullam posuere bibendum semper. Nullam
-                        pulvinar varius finibus. </p>
-                </div>
+
+            <div class="col-md-4">
+                    <div class="card m-3">
+                            <img class="card-img-top img-fluid" src="img/table-accessorie.png" alt="table dining accessories">
+                            <div class="card-body">
+                                <h5 class="card-title">Dining Table Accessories</h5>
+                                <hr>
+                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse rhoncus in
+                                    nisi et tincidunt. Phasellus semper lobortis magna, id lacinia enim hendrerit non. Nunc
+                                    ultricies dictum augue, et lacinia metus imperdiet nec.  </p>
+                            </div>
+                        </div>
             </div>
+            <div class="col-md-4">
+                    <div class="card m-3">
+                            <img class="card-img-top img-fluid" src="img/bakeware.png" alt="bakeware">
+                            <div class="card-body">
+                                <h5 class="card-title">Cookware and Bakeware</h5>
+                                <hr>
+                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse rhoncus in
+                                    nisi et tincidunt. Phasellus semper lobortis magna, id lacinia enim hendrerit non. Nunc
+                                    ultricies dictum augue, et lacinia metus imperdiet nec.  </p>
+                        </div>
+                    </div>
+            </div>
+
         </div>
     </div>
+
+    <script>
+            $(document).ready(function(){
+
+                $('.col-md-4').hover(
+                    // trigger when mouse hover
+                    function(){
+                        $(this).animate({
+                            marginTop: "-=1%",
+                        },200);
+                    },
+
+                    // trigger when mouse out
+                    function(){
+                        $(this).animate({
+                            marginTop: "0%"
+                        },200);
+                    }
+                );
+            });
+        </script>
 </section>
 
 

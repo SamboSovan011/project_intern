@@ -19,9 +19,10 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="icon" href="img/potted-pan_logo.jpg">
+    <link rel="icon" type="image/x-icon" href="/img/potted-pan_logo.png">
     <link rel="stylesheet" href="{{asset('css/custom.css')}}">
     <script src="https://kit.fontawesome.com/dc09df96e5.js"></script>
+
 </head>
 
 <body>

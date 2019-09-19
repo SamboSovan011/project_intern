@@ -12,7 +12,13 @@
 */
 
 Route::get('/', 'HomeController@index');
-Route::get('/signup', ['as' => 'SignUp', 'uses' => 'HomeController@SignUp']);
-Route::post('/login', ['as' => 'Login', 'uses' => 'HomeController@Login']);
+Route::post('/signup', ['as' => 'SignUp', 'uses' => 'HomeController@SignUp']);
+// Route::post('/login', ['as' => 'Login', 'uses' => 'HomeController@Login']);
 
 Auth::routes();
+Route::get('/logout', 'Auth\LoginController@logout');
+
+// Route admin
+Route::get('/admin/login', 'AdminController@showadminloginform');
+Route::post('/admin', ['as' => 'adminlogin', 'uses' => 'AdminController@login']);
+Route::get('/admin/dashboard', 'AdminController@dashboard');
