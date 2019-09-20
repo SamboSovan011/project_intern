@@ -2,7 +2,7 @@
 @section('title', 'Potted Pan - Slide Adder')
 @section('content')
 <style>
-    #form{
+    #form {
         padding-top: 10rem;
     }
 </style>
@@ -18,37 +18,40 @@
     </ol>
 </section>
 <section id="form">
-        <div class="box box-primary">
-                <div class="box-header with-border">
-                  <h3 class="box-title">Slide For Banner</h3>
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Slide For Banner</h3>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form role="form" method="POST" action="{{route('postSlide')}}" enctype="multipart/form-data">
+           {{ csrf_field() }}
+            <div class="box-body">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Title</label>
+                    <input name="title" type="text" class="form-control" id="exampleInputEmail1"
+                        placeholder="Slide Title" required>
                 </div>
-                <!-- /.box-header -->
-                <!-- form start -->
-                <form role="form">
-                  <div class="box-body">
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">Title</label>
-                      <input name="title" type="text" class="form-control" id="exampleInputEmail1" placeholder="Slide Title">
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputPassword1">Description</label>
-                      <input name="desc" type="text" class="form-control" id="exampleInputPassword1" placeholder="Description">
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputFile">File input</label>
-                      <input type="file" id="exampleInputFile">
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Description</label>
+                    <input name="desc" type="text" class="form-control" id="exampleInputPassword1"
+                        placeholder="Description" required>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputFile">File input</label>
+                    <input type="file" name="image" id="exampleInputFile" required>
 
-                      <p class="help-block">Example block-level help text here.</p>
-                    </div>
+                    <p class="help-block">Example block-level help text here.</p>
+                </div>
 
-                  </div>
-                  <!-- /.box-body -->
+            </div>
+            <!-- /.box-body -->
 
-                  <div class="box-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                  </div>
-                </form>
-              </div>
+            <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
 </section>
 
 @endsection

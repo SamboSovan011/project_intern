@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use Session;
+use App\Slide;
 
 class AdminController extends Controller
 {
@@ -18,7 +19,6 @@ class AdminController extends Controller
             'is_admin' => 1,
         ];
 
-        // dd($credentials);
         if($request->isMethod('post')){
             if(Auth::attempt($credentials)){
                 Session::put('adminSession', $credentials['email']);
@@ -49,5 +49,27 @@ class AdminController extends Controller
 
     public function slide(){
         return view('dashboard.slide');
+    }
+
+    public function postSlide(Request $request){
+        $slide = new Slide();
+        $slide->title = $request->input('title');
+        $slide->description = $request->input('desc');
+
+        if($request->hasFile('image')){
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time(). "." . $extension;
+            $file->move('img/', $filename);
+            $slide->img_path = $filename;
+
+        }else{
+            return $request;
+            $slide->img_path = "";
+        }
+
+        $slide->save();
+
+        return view('dashboard.slide')->with('slide', $slide);
     }
 }
