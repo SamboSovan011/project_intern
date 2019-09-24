@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use DB;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -72,5 +72,24 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    public function checkEmailAvailable(Request $request){
+        if($request->get('email')){
+            $email = $request->get('email');
+            $data = DB::table('users')
+                    ->where('email', $email)
+                    ->count();
+            if($data > 0){
+                echo "not unique";
+
+
+            }
+            else{
+                echo "unique";
+
+            }
+        }
+
     }
 }

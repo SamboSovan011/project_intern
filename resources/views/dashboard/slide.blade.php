@@ -3,7 +3,7 @@
 @section('content')
 <style>
     #form {
-        padding-top: 10rem;
+        padding: 3rem;
     }
 </style>
 <section class="content-header">
@@ -25,7 +25,7 @@
         <!-- /.box-header -->
         <!-- form start -->
         <form role="form" method="POST" action="{{route('postSlide')}}" enctype="multipart/form-data">
-           {{ csrf_field() }}
+            {{ csrf_field() }}
             <div class="box-body">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Title</label>
@@ -34,8 +34,21 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Description</label>
-                    <input name="desc" type="text" class="form-control" id="exampleInputPassword1"
-                        placeholder="Description" required>
+                    <textarea class="form-control" name="desc" id="desc" cols="30" rows="10"></textarea>
+                </div>
+                <div class="form-group">
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="is_main" value="1" checked>
+                            This is the main slide.
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="is_main" value="0">
+                            No, this is the normal slide.
+                        </label>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputFile">File input</label>
