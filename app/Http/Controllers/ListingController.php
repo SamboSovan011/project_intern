@@ -10,7 +10,8 @@ class ListingController extends Controller
 {
     public function slideListing()
     {
-        return view('listing.listingSlide');
+        $slide = Slide::all();
+        return view('listing.listingSlide')->with('slides', $slide);
     }
 
     public function slideForm()
@@ -21,7 +22,7 @@ class ListingController extends Controller
     public function postSlide(Request $request)
     {
         $slide = new Slide();
-        $slide->user_id = Auth::user()->id;
+        $slide->user_email = Auth::user()->email;
         $slide->title = $request->input('title');
         $slide->is_main = $request->input('is_main');
         $slide->description = $request->input('desc');
@@ -33,6 +34,7 @@ class ListingController extends Controller
             $file->move('img/', $filename);
             $img_path = "img/" . time() . "." . $extension;
             $slide->img_path = $img_path;
+            session()->flash('success', 'You have posted a slide successfully!');
         } else {
             return $request;
             $slide->img_path = "";
@@ -40,6 +42,39 @@ class ListingController extends Controller
 
         $slide->save();
 
-        return view('dashboard.slide')->with('slide', $slide);
+
+        return redirect()->route('slidelisting');
+    }
+
+    public function deleteSlide($id){
+        if(Slide::findOrFail($id)){
+            Slide::where('id', $id)
+                ->delete();
+            session()->flash('success', 'You just deleted a slide!');
+        }
+        else{
+            session()->flash('error', 'Sorry, there is some wrong occur!');
+        }
+
+        return redirect()->route('slidelisting');
+    }
+
+    public function approveSlide($id){
+        if(Slide::findOrFail($id)){
+            Slide::where('id', $id)
+                ->update(['is_approved' => 2]);
+            session()->flash('success', 'You just approved a slide post!');
+        }
+
+        return redirect()->route('slidelisting');
+    }
+
+    public function blockSlide($id){
+        if(Slide::findOrFail($id)){
+            Slide::where('id', $id)
+                ->update(['is_approved' => 0]);
+            session()->flash('success', 'You just blocked a slide post!');
+        }
+        return redirect()->route('slidelisting');
     }
 }

@@ -16,14 +16,18 @@ Route::post('/signup', ['as' => 'SignUp', 'uses' => 'HomeController@SignUp']);
 // Route::post('/login', ['as' => 'Login', 'uses' => 'HomeController@Login']);
 Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout');
-Route::get('/checkEmail', ['as' => 'checkEmail', 'uses' => 'RegisterController@checkEmailAvailable']);
+Route::get('/checkEmail', ['as' => 'checkEmail', 'uses' => 'checkEmailController@checkEmailAvailable']);
 
 // Route admin
 Route::get('/admin/login', 'AdminController@showadminloginform');
 Route::post('/admin', ['as' => 'adminlogin', 'uses' => 'AdminController@login']);
 Route::get('/admin/dashboard', 'AdminController@dashboard');
 Route::prefix('/admin/dashboard')->group(function(){
+    // Route slide
     Route::get('/slidelisting', ['as' => 'slidelisting', 'uses' => 'ListingController@slideListing']);
     Route::get('/slide', ['as' => 'slide', 'uses' => 'ListingController@slideForm']);
-    Route::post('/post', ['as'=>'postSlide', 'uses' => 'ListingController@postSlide']);
+    Route::post('/postSlide', ['as'=>'postSlide', 'uses' => 'ListingController@postSlide']);
+    Route::get('/deleteSlide/{id}', ['as' => 'deleteSlide', 'uses' => 'ListingController@deleteSlide']);
+    Route::get('/approveSlide/{id}', ['as' => 'approveSlide', 'uses' => 'ListingController@approveSlide']);
+    Route::get('/blockSlide/{id}', ['as' => 'blockSlide', 'uses' => 'ListingController@blockSlide']);
 });
