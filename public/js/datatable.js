@@ -1,8 +1,16 @@
 $(function () {
-    $('#example1').DataTable()
+    $('#example1').DataTable({
+        'paging'      : true,
+      'lengthChange': false,
+      'searching'   : false,
+      'info'        : true,
+      'autoWidth'   : false,
+      'ordering'    : true,
+
+    })
     $('#example2').DataTable({
       'paging'      : true,
-      'lengthChange': false,
+      'lengthChange': "false",
       'searching'   : false,
       'ordering'    : true,
       'info'        : true,

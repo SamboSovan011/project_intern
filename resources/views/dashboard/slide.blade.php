@@ -8,13 +8,13 @@
 </style>
 <section class="content-header">
     <h1>
-        General Form Elements
-        <small>Preview</small>
+        Banner Slide
+        <small>Add banner to the slide</small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Forms</a></li>
-        <li class="active">General Elements</li>
+        <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="{{route('slidelisting')}}">Banner Slide</a></li>
+        <li class="active">Post New Slide</li>
     </ol>
 </section>
 <section id="form">

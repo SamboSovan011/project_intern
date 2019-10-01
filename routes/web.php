@@ -30,4 +30,8 @@ Route::prefix('/admin/dashboard')->group(function(){
     Route::get('/deleteSlide/{id}', ['as' => 'deleteSlide', 'uses' => 'ListingController@deleteSlide']);
     Route::get('/approveSlide/{id}', ['as' => 'approveSlide', 'uses' => 'ListingController@approveSlide']);
     Route::get('/blockSlide/{id}', ['as' => 'blockSlide', 'uses' => 'ListingController@blockSlide']);
+    Route::get('/getSlide/{id}', 'ListingController@getSlideData')->name('getSlideData');
+    Route::post('/editSlide/{id}', ['as' => 'editSlide', 'uses' => 'ListingController@editSlide']);
+
 });
+

@@ -8,18 +8,32 @@
         justify-content: flex-end;
         align-items: flex-end;
     }
+
+
+    .example-modal .modal {
+        position: relative;
+        top: auto;
+        bottom: auto;
+        right: auto;
+        left: auto;
+        display: block;
+        z-index: 1;
+    }
+
+    .example-modal .modal {
+        background: transparent !important;
+    }
 </style>
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Data Tables
-        <small>advanced tables</small>
+        Banner Slide
+        <small>Add banner to the slide</small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Tables</a></li>
-        <li class="active">Data tables</li>
+        <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Banner Slide</li>
     </ol>
 </section>
 <section id="button-row">
@@ -42,7 +56,7 @@
     <div class="alert alert-danger alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <h4><i class="icon fa fa-ban"></i> Fail!</h4>
-            {{session()->get('error')}}
+        {{session()->get('error')}}
     </div>
     @endif
 </section>
@@ -54,7 +68,7 @@
 
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Data Table With Full Features</h3>
+                    <h3 class="box-title">Banner Slides</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -63,8 +77,8 @@
                             <tr>
                                 <th>Slide Images</th>
                                 <th>User Emails</th>
-                                <th>Titles</th>
-                                <th>Decription</th>
+                                <th>Title</th>
+                                <th>Description</th>
                                 <th>Is_Main Slide</th>
                                 <th>Status</th>
                                 <th></th>
@@ -90,25 +104,32 @@
                                 </td>
                                 <td>
                                     @if($slide->is_approved == 2)
-                                        <span class="label label-success">Approved</span>
+                                    <span class="label label-success">Approved</span>
                                     @elseif($slide->is_approved == 1)
-                                        <span class="label label-warning">Pending</span>
+                                    <span class="label label-warning">Pending</span>
                                     @else
-                                        <span class="label label-danger">Block</span>
+                                    <span class="label label-danger">Block</span>
                                     @endif
                                 </td>
                                 <td>
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                        <button type="button" class="btn btn-default dropdown-toggle"
+                                            data-toggle="dropdown">
                                             <span>Action</span>
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu">
-                                        <li><a href="{{route('approveSlide', ['id' => $slide->id])}}"><span class="text-green glyphicon glyphicon-ok">Approved</span></a></li>
-                                        <li><a href="{{route('blockSlide', ['id' => $slide->id])}}"><span class="text-yellow glyphicon glyphicon-remove">Block</span></a></li>
+                                            <li><a href="{{route('approveSlide', ['id' => $slide->id])}}"><span
+                                                        class="text-green glyphicon glyphicon-ok">Approved</span></a>
+                                            </li>
+                                            <li><a href="{{route('blockSlide', ['id' => $slide->id])}}"><span
+                                                        class="text-yellow glyphicon glyphicon-remove">Block</span></a>
+                                            </li>
                                             <li>
                                                 <a href="#" data-toggle="modal" data-target="#editForm">
-                                                    <span class="text-blue fa fa-fw fa-edit">Edit</span>
+                                                    <span id="{{$slide->id}}"
+                                                        class="text-blue fa fa-fw fa-edit edit">Edit</span>
+
                                                 </a>
                                             </li>
                                             <li>
@@ -127,8 +148,8 @@
                             <tr>
                                 <th>Slide Images</th>
                                 <th>User Emails</th>
-                                <th>Titles</th>
-                                <th>Decription</th>
+                                <th>Title</th>
+                                <th>Description</th>
                                 <th>Is_Main Slide</th>
                                 <th>Status</th>
                                 <th></th>
@@ -143,7 +164,126 @@
         <!-- /.col -->
     </div>
     <!-- /.row -->
+
+
+
+
+    {{-- modal --}}
+    <div class="modal fade" id="editForm">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Edit Slide</h4>
+                </div>
+                <form id="editSlideForm" method="POST" action="" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="box-body">
+
+                            @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
+
+
+
+                            <div class="form-group">
+                                <label>Title</label>
+                                <input name="title" type="text" class="form-control" id="slideTitle"
+                                    placeholder="Slide title">
+                            </div>
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea name="description" class="form-control" rows="3" id="slideDesc"
+                                    placeholder="Slide Description"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="is_main" id="is-main" value="1" checked>
+                                        This is the main slide.
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="is_main" id="not-main" value="0">
+                                        No, this is normal slide.
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputFile">File input</label>
+                                <input name="image" type="file" id="exampleInputFile">
+
+                                <p class="help-block">Example block-level help text here.</p>
+                            </div>
+                            <img id="store_img" src="" width="100px" height="90px" alt="">
+
+
+
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 </section>
 <!-- /.content -->
+@if (count($errors) > 0)
+    <script>
+        $( document ).ready(function() {
+            $('#editForm').modal('show');
+        });
+    </script>
+@endif
+
+<script>
+
+
+    $(document).on('click', '.edit', function(e){
+            e.preventDefault();
+            var id = $(this).attr('id');
+
+            $.ajax({
+                url: "/admin/dashboard/getSlide/"+id,
+                type:"GET",
+                dataType:"json",
+                success:function(html){
+                    $('#editSlideForm').attr("action", "/admin/dashboard/editSlide/"+id)
+                    $('#slideTitle').val(html.data.title);
+                    $('#slideDesc').val(html.data.description);
+                    $('#store_img').attr("src", "/"+html.data.img_path);
+                    if(html.data.is_main == 1){
+                        $('#not-main').attr("checked", false);
+                        $('#is-main').attr("checked", "checked");
+                    }
+                    else{
+                        $('#not-main').attr("checked", "checked");
+                        $('#is-main').attr("checked", false);
+                    }
+                }
+            })
+
+        });
+
+
+</script>
+
+
 
 @endsection

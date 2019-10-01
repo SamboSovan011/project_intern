@@ -84,13 +84,14 @@
     $(document).ready(function(){
         $('#defaultRegisterFormEmail').blur(function(){
             var error_email = '';
+            var _token = $('input[name="_token"]').val();
             var email = $('#defaultRegisterFormEmail').val();
 
 
             $.ajax({
                 url:"{{route('checkEmail')}}",
                 type: "GET",
-                data:{email:email},
+                data:{email:email, _token:_token},
 
                 success:function(result){
                     if(result == "unique"){
