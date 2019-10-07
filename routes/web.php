@@ -21,7 +21,7 @@ Route::get('/checkEmail', ['as' => 'checkEmail', 'uses' => 'checkEmailController
 // Route admin
 Route::get('/admin/login', 'AdminController@showadminloginform');
 Route::post('/admin', ['as' => 'adminlogin', 'uses' => 'AdminController@login']);
-Route::get('/admin/dashboard', 'AdminController@dashboard');
+Route::get('/admin/dashboard', 'AdminController@dashboard')->name('admin.dashboard');
 Route::prefix('/admin/dashboard')->group(function(){
     // Route slide
     Route::get('/slidelisting', ['as' => 'slidelisting', 'uses' => 'ListingController@slideListing']);
@@ -32,6 +32,7 @@ Route::prefix('/admin/dashboard')->group(function(){
     Route::get('/blockSlide/{id}', ['as' => 'blockSlide', 'uses' => 'ListingController@blockSlide']);
     Route::get('/getSlide/{id}', 'ListingController@getSlideData')->name('getSlideData');
     Route::post('/editSlide/{id}', ['as' => 'editSlide', 'uses' => 'ListingController@editSlide']);
-
+    // Route category
+    Route::get('/categorylisting', ['as' => 'categorylisting', 'uses' => 'ListingController@categoryListing']);
 });
 

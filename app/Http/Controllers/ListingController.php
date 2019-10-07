@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Slide;
+use App\Categories;
 use Auth;
 
 class ListingController extends Controller
@@ -143,5 +144,10 @@ class ListingController extends Controller
 
 
 
+    }
+
+    public function categoryListing(){
+        $cate = Categories::all();
+        return view('listing.listingCategory')->with('cates', $cate);
     }
 }

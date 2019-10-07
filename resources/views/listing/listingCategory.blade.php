@@ -1,5 +1,5 @@
-@extends('dashboard.app')
-@section('title', 'Potted Pan - Slides')
+@extends('dashboard.app');
+@section('title', 'Potted Pan - Categories')
 @section('content')
 <style>
     #button-row {
@@ -24,23 +24,22 @@
         background: transparent !important;
     }
 </style>
-
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Banner Slide
-        <small>Add banner to the slide</small>
+        Category
+        <small>Add new Categories</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Banner Slide</li>
+        <li class="active">Category</li>
     </ol>
 </section>
 <section id="button-row">
     <div class="button">
         <a href="{{route('slide')}}">
             <button class="btn btn-info">
-                POST NEW SLIDE
+                POST NEW CATEGORY
             </button></a>
 
     </div>
@@ -68,44 +67,36 @@
 
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Banner Slides</h3>
+                    <h3 class="box-title">Categories</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="example1" class="table table-bordered table-striped">
+                    <table id="example2" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>Slide Images</th>
+                                <th>Category Images</th>
                                 <th>User Emails</th>
                                 <th>Title</th>
                                 <th>Description</th>
-                                <th>Is_Main Slide</th>
                                 <th>Status</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($slides as $slide)
+                            @foreach ($cates as $cate)
                             <tr>
                                 <td>
-                                    <img src="{{asset($slide->img_path)}}" width="80px" height="70px" alt="img_slide">
+                                    <img src="{{asset($cate->img_path)}}" width="80px" height="70px" alt="img_slide">
                                 </td>
                                 <td>
                                     {{$slide->user_email}}
                                 </td>
-                                <td>{{$slide->title}}</td>
-                                <td>{{$slide->description}}</td>
+                                <td>{{$cate->title}}</td>
+                                <td>{{$cate->description}}</td>
                                 <td>
-                                    @if($slide->is_main == 1)
-                                    Yes
-                                    @else
-                                    No
-                                    @endif
-                                </td>
-                                <td>
-                                    @if($slide->is_approved == 2)
+                                    @if($cate->is_approved == 2)
                                     <span class="label label-success">Approved</span>
-                                    @elseif($slide->is_approved == 1)
+                                    @elseif($cate->is_approved == 1)
                                     <span class="label label-warning">Pending</span>
                                     @else
                                     <span class="label label-danger">Block</span>
@@ -119,21 +110,21 @@
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li><a href="{{route('approveSlide', ['id' => $slide->id])}}"><span
+                                            <li><a href="{{route('approveSlide', ['id' => $cate->id])}}"><span
                                                         class="text-green glyphicon glyphicon-ok">Approved</span></a>
                                             </li>
-                                            <li><a href="{{route('blockSlide', ['id' => $slide->id])}}"><span
+                                            <li><a href="{{route('blockSlide', ['id' => $cate->id])}}"><span
                                                         class="text-yellow glyphicon glyphicon-remove">Block</span></a>
                                             </li>
                                             <li>
                                                 <a href="#" data-toggle="modal" data-target="#editForm">
-                                                    <span id="{{$slide->id}}"
+                                                    <span id="{{$cate->id}}"
                                                         class="text-blue fa fa-fw fa-edit edit">Edit</span>
 
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="{{route('deleteSlide', ['id' => $slide->id])}}">
+                                                <a href="{{route('deleteSlide', ['id' => $cate->id])}}">
                                                     <span class="text-red glyphicon glyphicon-trash">Delete</span>
                                                 </a>
                                             </li>
@@ -146,11 +137,10 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>Slide Images</th>
+                                <th>Category Images</th>
                                 <th>User Emails</th>
                                 <th>Title</th>
                                 <th>Description</th>
-                                <th>Is_Main Slide</th>
                                 <th>Status</th>
                                 <th></th>
                             </tr>
@@ -244,17 +234,9 @@
     <!-- /.modal -->
 </section>
 <!-- /.content -->
-@if (count($errors) > 0)
-<script>
-    $( document ).ready(function() {
-            $('#editForm').modal('show');
-        });
-</script>
-@endif
-
 <script>
     $(function () {
-    $('#example1').DataTable({
+    $('#example2').DataTable({
         'paging'      : true,
       'lengthChange': true,
       'searching'   : true,
@@ -265,38 +247,5 @@
     })
 
   })
-
-
-
-    $(document).on('click', '.edit', function(e){
-            e.preventDefault();
-            var id = $(this).attr('id');
-
-            $.ajax({
-                url: "/admin/dashboard/getSlide/"+id,
-                type:"GET",
-                dataType:"json",
-                success:function(html){
-                    $('#editSlideForm').attr("action", "/admin/dashboard/editSlide/"+id)
-                    $('#slideTitle').val(html.data.title);
-                    $('#slideDesc').val(html.data.description);
-                    $('#store_img').attr("src", "/"+html.data.img_path);
-                    if(html.data.is_main == 1){
-                        $('#not-main').attr("checked", false);
-                        $('#is-main').attr("checked", "checked");
-                    }
-                    else{
-                        $('#not-main').attr("checked", "checked");
-                        $('#is-main').attr("checked", false);
-                    }
-                }
-            })
-
-        });
-
-
 </script>
-
-
-
 @endsection
