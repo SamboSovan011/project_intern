@@ -137,17 +137,18 @@ class ListingController extends Controller
 
             }
 
-
-
-
-
-
-
-
     }
 
     public function categoryListing(){
         $cate = Categories::all();
         return view('listing.listingCategory')->with('cates', $cate);
+    }
+
+    public function categoryPostingForm(){
+        return view('dashboard.category');
+    }
+
+    public function postNewCategory(Request $request){
+
     }
 }

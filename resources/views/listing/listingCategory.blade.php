@@ -37,7 +37,7 @@
 </section>
 <section id="button-row">
     <div class="button">
-        <a href="{{route('slide')}}">
+        <a href="{{route('newcategoryposting')}}">
             <button class="btn btn-info">
                 POST NEW CATEGORY
             </button></a>
