@@ -11,6 +11,9 @@
 |
 */
 // Route User
+
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', 'HomeController@index');
 Route::post('/signup', ['as' => 'SignUp', 'uses' => 'HomeController@SignUp']);
 // Route::post('/login', ['as' => 'Login', 'uses' => 'HomeController@Login']);
@@ -36,5 +39,8 @@ Route::prefix('/admin/dashboard')->group(function(){
     Route::get('/categorylisting', ['as' => 'categorylisting', 'uses' => 'ListingController@categoryListing']);
     Route::get('/newcategoryposting', ['as' => 'newcategoryposting', 'uses' => 'ListingController@categoryPostingForm']);
     Route::post('/postCategory', ['as' => 'postCategory', 'uses' => 'ListingController@postNewCategory']);
+    Route::get('/approveCategory/{id}', ['as' => 'approveCategory', 'uses' => 'ListingController@approveCategory']);
+    Route::get('/blockCategory{id}', ['as' => 'blockCategory', 'uses' => 'ListingController@blockCategory']);
+    Route::get('/deleteCategory/{id}', ['as' => 'deleteCategory', 'uses' => 'ListingController@deleteCategory']);
 });
 

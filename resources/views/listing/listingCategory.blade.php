@@ -89,7 +89,7 @@
                                     <img src="{{asset($cate->img_path)}}" width="80px" height="70px" alt="img_slide">
                                 </td>
                                 <td>
-                                    {{$slide->user_email}}
+                                    {{$cate->user_email}}
                                 </td>
                                 <td>{{$cate->title}}</td>
                                 <td>{{$cate->description}}</td>
@@ -110,10 +110,10 @@
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li><a href="{{route('approveSlide', ['id' => $cate->id])}}"><span
+                                            <li><a href="{{route('approveCategory', ['id' => $cate->id])}}"><span
                                                         class="text-green glyphicon glyphicon-ok">Approved</span></a>
                                             </li>
-                                            <li><a href="{{route('blockSlide', ['id' => $cate->id])}}"><span
+                                            <li><a href="{{route('blockCategory', ['id' => $cate->id])}}"><span
                                                         class="text-yellow glyphicon glyphicon-remove">Block</span></a>
                                             </li>
                                             <li>
@@ -124,7 +124,7 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="{{route('deleteSlide', ['id' => $cate->id])}}">
+                                                <a href="{{route('deleteCategory', ['id' => $cate->id])}}">
                                                     <span class="text-red glyphicon glyphicon-trash">Delete</span>
                                                 </a>
                                             </li>
@@ -236,16 +236,25 @@
 <!-- /.content -->
 <script>
     $(function () {
-    $('#example2').DataTable({
+        $('#example2').DataTable({
         'paging'      : true,
-      'lengthChange': true,
-      'searching'   : true,
-      'info'        : true,
-      'autoWidth'   : false,
-      'ordering'    : true,
+        'lengthChange': true,
+        'searching'   : true,
+        'info'        : true,
+        'autoWidth'   : false,
+        'ordering'    : true,
+
+        })
 
     })
 
-  })
+    $(document).on('click', '.edit', function(e){
+        e.preventDefault();
+        var id = $(this).attr('id');
+
+        $.ajax({
+
+        });
+    });
 </script>
 @endsection

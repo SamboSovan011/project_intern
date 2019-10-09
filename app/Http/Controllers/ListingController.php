@@ -9,6 +9,8 @@ use Auth;
 
 class ListingController extends Controller
 {
+    // Slide
+
     public function slideListing()
     {
         $slide = Slide::all();
@@ -139,6 +141,8 @@ class ListingController extends Controller
 
     }
 
+    // Category
+
     public function categoryListing(){
         $cate = Categories::all();
         return view('listing.listingCategory')->with('cates', $cate);
@@ -149,6 +153,56 @@ class ListingController extends Controller
     }
 
     public function postNewCategory(Request $request){
+        $category = new Categories();
+        $category->user_email = Auth::user()->email;
+        $category->title = $request->input('title');
+        $category->description = $request->input('desc');
 
+        if($request->hasFile('image')){
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move('img/', $filename);
+            $filepath = '/img/' . $filename;
+            $category->img_path = $filepath;
+
+            session()->flash('success', 'You have post a new category!');
+        }
+
+        $category->save();
+        return redirect()->route('categorylisting');
+
+
+    }
+
+    public function approveCategory($id){
+        if(Categories::findOrFail($id)){
+            Categories::where('id', $id)
+                        ->update([
+                            'is_approved' => 2
+                        ]);
+
+            session()->flash('success', 'You have approved a category!');
+            return redirect()->route('categorylisting');
+        }
+    }
+    public function blockCategory($id){
+        if(Categories::findOrFail($id)){
+            Categories::where('id', $id)
+                        ->update([
+                            'is_approved' => 0
+                        ]);
+            session()->flash('success', 'You have block a category!');
+            return redirect()->route('categorylisting');
+        }
+    }
+
+    public function deleteCategory($id){
+        if(Categories::findOrFail($id)){
+            Categories::where('id', $id)
+                        ->delete();
+            session()->flash('success', 'You have successfully deleted a category.');
+            return redirect()->route('categorylisting');
+        }
     }
 }
