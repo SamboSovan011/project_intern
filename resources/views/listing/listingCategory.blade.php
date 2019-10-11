@@ -165,9 +165,9 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Edit Slide</h4>
+                    <h4 class="modal-title">Edit Category</h4>
                 </div>
-                <form id="editSlideForm" method="POST" action="" enctype="multipart/form-data">
+                <form id="editCateForm" method="POST" action="" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="box-body">
@@ -186,39 +186,21 @@
 
                             <div class="form-group">
                                 <label>Title</label>
-                                <input name="title" type="text" class="form-control" id="slideTitle"
-                                    placeholder="Slide title">
+                                <input name="title" type="text" class="form-control" id="cateTitle"
+                                    placeholder="Cate title">
                             </div>
                             <div class="form-group">
                                 <label>Description</label>
-                                <textarea name="description" class="form-control" rows="3" id="slideDesc"
-                                    placeholder="Slide Description"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="is_main" id="is-main" value="1" checked>
-                                        This is the main slide.
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="is_main" id="not-main" value="0">
-                                        No, this is normal slide.
-                                    </label>
-                                </div>
+                                <textarea name="description" class="form-control" rows="3" id="cateDesc"
+                                    placeholder="Category Description"></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputFile">File input</label>
                                 <input name="image" type="file" id="exampleInputFile">
 
-                                <p class="help-block">Example block-level help text here.</p>
+                                <p class="help-block">Input Image for Category</p>
                             </div>
                             <img id="store_img" src="" width="100px" height="90px" alt="">
-
-
-
-
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -253,6 +235,15 @@
         var id = $(this).attr('id');
 
         $.ajax({
+            url: "/admin/dashboard/getCategory/"+id,
+            type: "GET",
+            dataType: "json",
+            success:function(html){
+                $('#editCateForm').attr('action',  '/admin/dashboard/editCategory/'+id);
+                $('#cateTitle').val(html.data.title);
+                $('#cateDesc').val(html.data.description);
+                $('#store_img').attr('src', html.data.img_path);
+            }
 
         });
     });

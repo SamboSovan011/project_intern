@@ -205,4 +205,48 @@ class ListingController extends Controller
             return redirect()->route('categorylisting');
         }
     }
+
+    public function getCategory($id){
+        if(request()->ajax()){
+            $data = Categories::findOrFail($id);
+            return response()->json(['data'=> $data]);
+        }
+    }
+
+    public function editCategory(Request $request, $id){
+        if($request->all()){
+            $validateData = $request->validate([
+                'title' => 'required|max:255',
+                'description' =>  'required|max:255',
+                'image' => 'mimes:jpeg,png,jpg,gif,svg',
+            ]);
+
+            if($validateData){
+                if($request->hasFile('image')){
+                    $file = $request->file('image');
+                    $extension = $file->getClientOriginalExtension();
+                    $filename = time() . '.' . $extension;
+                    $img_path = '/img/' . $filename;
+                    $file->move('/img', $filename);
+                    Categories::where('id', $id)
+                                ->update([
+                                    'title' => $request->input('title'),
+                                    'description' => $request->input('description'),
+                                    'img_path' => $img_path
+                                ]);
+                    session()->flash('success', 'You have updated a category!');
+                    return redirect()->route('categorylisting');
+                }
+                else{
+                    Categories::where('id', $id)
+                                ->update([
+                                    'title' => $request->input('title'),
+                                    'description' => $request->input('description')
+                                ]);
+                    session()->flash('success', 'You have updated a category');
+                    return redirect()->route('categorylisting');
+                }
+            }
+        }
+    }
 }

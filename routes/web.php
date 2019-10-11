@@ -42,5 +42,7 @@ Route::prefix('/admin/dashboard')->group(function(){
     Route::get('/approveCategory/{id}', ['as' => 'approveCategory', 'uses' => 'ListingController@approveCategory']);
     Route::get('/blockCategory{id}', ['as' => 'blockCategory', 'uses' => 'ListingController@blockCategory']);
     Route::get('/deleteCategory/{id}', ['as' => 'deleteCategory', 'uses' => 'ListingController@deleteCategory']);
+    Route::get('/getCategory/{id}', 'ListingController@getCategory')->name('getCategoryData');
+    Route::post('/editCategory/{id}', ['as' => 'editCategory', 'uses' => 'ListingController@editCategory']);
 });
 
