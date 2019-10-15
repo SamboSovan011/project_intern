@@ -4,9 +4,6 @@
 @section('content')
 
 <style>
-
-
-
     .d-block {
         position: absolute;
         top: 50%;
@@ -15,7 +12,7 @@
         max-width: 100%;
     }
 
-    .card-img-top{
+    .card-img-top {
         /* height: 212.26px !important;
         margin-right:-20px;
         margin-left:-20px !important; */
@@ -23,13 +20,15 @@
         height: 190px;
         object-fit: cover;
     }
-    .card{
+
+    .card {
         border: none;
     }
-    .card:hover{
 
-        -webkit-box-shadow: -1px 9px 40px -12px rgba(0,0,0,0.75);
-        -moz-box-shadow: -1px 9px 40px -12px rgba(0,0,0,0.75);
+    .card:hover {
+
+        -webkit-box-shadow: -1px 9px 40px -12px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: -1px 9px 40px -12px rgba(0, 0, 0, 0.75);
         box-shadow: -1px 9px 40px -12px rgba(0, 0, 0, 0.75);
     }
 
@@ -37,7 +36,8 @@
         height: 500px;
         padding: 0;
     }
-    .carousel-item img{
+
+    .carousel-item img {
         width: 100%;
         height: 100% !important;
         object-fit: cover;
@@ -47,8 +47,8 @@
     <div id="CarouselContent" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             <li data-target="#CarouselContent" data-slide-to="0" class="active"></li>
-            <li data-target="#CarouselContent" data-slide-to="1"></li>
             <li data-target="#CarouselContent" data-slide-to="2"></li>
+            <li data-target="#CarouselContent" data-slide-to="1"></li>
         </ol>
         <div class="carousel-inner" role="listbox">
             <div class="carousel-item active">
@@ -74,88 +74,94 @@
 
 <section>
     <div class="container text-center" style="padding-bottom:8rem;">
-            <h3 class="my-5">Product Categories</h3>
+        <h3 class="my-5">Product Categories</h3>
         <div class="row d-flex justify-content-center">
+            @foreach ($cates as $cate)
             <div class="col-md-4">
                 <div class="card m-3">
-                    <img class="card-img-top img-fluid" src="img/kitchen-furniture.png" alt="kitchen-furniture">
+                <img class="card-img-top img-fluid" src="{{$cate->img_path}}" alt="kitchen-furniture">
                     <div class="card-body">
-                        <h5 class="card-title">Kitchen Furniture</h5>
+                    <h5 class="card-title">{{$cate->title}}</h5>
                         <hr>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse rhoncus in
-                                    nisi et tincidunt. Phasellus semper lobortis magna, id lacinia enim hendrerit non. Nunc
-                                    ultricies dictum augue, et lacinia metus imperdiet nec.  </p>
+                    <p class="card-text">{{$cate->description}}</p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            @endforeach
+
+            {{-- <div class="col-md-4">
                 <div class="card m-3">
                     <img class="card-img-top img-fluid" src="img/sink.png" alt="sink and kitchen taps">
-                        <div class="card-body">
-                            <h5 class="card-title">Sinks and Kitchen Taps</h5>
-                            <hr>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse rhoncus in
-                                    nisi et tincidunt. Phasellus semper lobortis magna, id lacinia enim hendrerit non. Nunc
-                                    ultricies dictum augue, et lacinia metus imperdiet nec.  </p>
-                        </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Sinks and Kitchen Taps</h5>
+                        <hr>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                            rhoncus in
+                            nisi et tincidunt. Phasellus semper lobortis magna, id lacinia enim hendrerit non. Nunc
+                            ultricies dictum augue, et lacinia metus imperdiet nec. </p>
+                    </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card m-3">
-                <img class="card-img-top img-fluid" src="img/appliance.png" alt="kitchen applainces">
-                 <div class="card-body">
-                    <h5 class="card-title">Kitchen Appliances</h5>
-                    <hr>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse rhoncus in
-                                    nisi et tincidunt. Phasellus semper lobortis magna, id lacinia enim hendrerit non. Nunc
-                                    ultricies dictum augue, et lacinia metus imperdiet nec.  </p>
-                </div>
-                </div>
-
-            </div>
-            <div class="col-md-4">
-                    <div class="card m-3">
-                            <img class="card-img-top img-fluid" src="img/accessories.png" alt="cooking-accessories">
-                            <div class="card-body">
-                                <h5 class="card-title">Cooking Accessories</h5>
-                                <hr>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse rhoncus in
-                                    nisi et tincidunt. Phasellus semper lobortis magna, id lacinia enim hendrerit non. Nunc
-                                    ultricies dictum augue, et lacinia metus imperdiet nec.  </p>
-                            </div>
-                        </div>
-            </div>
-
-            <div class="col-md-4">
-                    <div class="card m-3">
-                            <img class="card-img-top img-fluid" src="img/table-accessorie.png" alt="table dining accessories">
-                            <div class="card-body">
-                                <h5 class="card-title">Dining Table Accessories</h5>
-                                <hr>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse rhoncus in
-                                    nisi et tincidunt. Phasellus semper lobortis magna, id lacinia enim hendrerit non. Nunc
-                                    ultricies dictum augue, et lacinia metus imperdiet nec.  </p>
-                            </div>
-                        </div>
-            </div>
-            <div class="col-md-4">
-                    <div class="card m-3">
-                            <img class="card-img-top img-fluid" src="img/bakeware.png" alt="bakeware">
-                            <div class="card-body">
-                                <h5 class="card-title">Cookware and Bakeware</h5>
-                                <hr>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse rhoncus in
-                                    nisi et tincidunt. Phasellus semper lobortis magna, id lacinia enim hendrerit non. Nunc
-                                    ultricies dictum augue, et lacinia metus imperdiet nec.  </p>
-                        </div>
+                    <img class="card-img-top img-fluid" src="img/appliance.png" alt="kitchen applainces">
+                    <div class="card-body">
+                        <h5 class="card-title">Kitchen Appliances</h5>
+                        <hr>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                            rhoncus in
+                            nisi et tincidunt. Phasellus semper lobortis magna, id lacinia enim hendrerit non. Nunc
+                            ultricies dictum augue, et lacinia metus imperdiet nec. </p>
                     </div>
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <div class="card m-3">
+                    <img class="card-img-top img-fluid" src="img/accessories.png" alt="cooking-accessories">
+                    <div class="card-body">
+                        <h5 class="card-title">Cooking Accessories</h5>
+                        <hr>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                            rhoncus in
+                            nisi et tincidunt. Phasellus semper lobortis magna, id lacinia enim hendrerit non. Nunc
+                            ultricies dictum augue, et lacinia metus imperdiet nec. </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card m-3">
+                    <img class="card-img-top img-fluid" src="img/table-accessorie.png" alt="table dining accessories">
+                    <div class="card-body">
+                        <h5 class="card-title">Dining Table Accessories</h5>
+                        <hr>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                            rhoncus in
+                            nisi et tincidunt. Phasellus semper lobortis magna, id lacinia enim hendrerit non. Nunc
+                            ultricies dictum augue, et lacinia metus imperdiet nec. </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card m-3">
+                    <img class="card-img-top img-fluid" src="img/bakeware.png" alt="bakeware">
+                    <div class="card-body">
+                        <h5 class="card-title">Cookware and Bakeware</h5>
+                        <hr>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                            rhoncus in
+                            nisi et tincidunt. Phasellus semper lobortis magna, id lacinia enim hendrerit non. Nunc
+                            ultricies dictum augue, et lacinia metus imperdiet nec. </p>
+                    </div>
+                </div>
             </div>
 
         </div>
-    </div>
+    </div> --}}
 
-    <script>
-            $(document).ready(function(){
+            <script>
+                $(document).ready(function(){
 
                 $('.col-md-4').hover(
                     // trigger when mouse hover
@@ -173,7 +179,7 @@
                     }
                 );
             });
-        </script>
+            </script>
 </section>
 
 

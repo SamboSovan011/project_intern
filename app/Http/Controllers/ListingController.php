@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Slide;
 use App\Categories;
+use App\User;
 use Auth;
 
 class ListingController extends Controller
@@ -24,29 +25,45 @@ class ListingController extends Controller
 
     public function postSlide(Request $request)
     {
-        $slide = new Slide();
-        $slide->user_email = Auth::user()->email;
-        $slide->title = $request->input('title');
-        $slide->is_main = $request->input('is_main');
-        $slide->description = $request->input('desc');
+        if ($request->all()) {
+            $validateData = $request->validate([
+                'title' => 'required|max:255',
+                'desc' => 'required|max:655535',
+                'is_main' => 'required',
+                'image' => 'required|mimes:jpeg,png,jpg,svg,gif',
+            ]);
 
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() . "." . $extension;
-            $file->move('img/', $filename);
-            $img_path = "img/" . time() . "." . $extension;
-            $slide->img_path = $img_path;
-            session()->flash('success', 'You have posted a slide successfully!');
+            if ($validateData) {
+                $slide = new Slide();
+                $slide->user_email = Auth::user()->email;
+                $slide->title = $request->input('title');
+                $slide->is_main = $request->input('is_main');
+                $slide->description = $request->input('desc');
+
+                if ($request->hasFile('image')) {
+                    $file = $request->file('image');
+                    $extension = $file->getClientOriginalExtension();
+                    $filename = time() . "." . $extension;
+                    $file->move('img/', $filename);
+                    $img_path = "img/" . time() . "." . $extension;
+                    $slide->img_path = $img_path;
+                    session()->flash('success', 'You have posted a slide successfully!');
+                } else {
+                    return $request;
+                    $slide->img_path = "";
+                }
+
+                $slide->save();
+                return redirect()->route('slidelisting');
+            } else {
+
+                session()->flash('error', 'Sorry! There is something wrong with data!');
+                return redirect()->route('slidelisting');
+            }
         } else {
-            return $request;
-            $slide->img_path = "";
+            session()->flash('error', 'Sorry! We could not get all data. Please reinsert again!');
+            return redirect()->route('slidelisting');
         }
-
-        $slide->save();
-
-
-        return redirect()->route('slidelisting');
     }
 
     public function deleteSlide($id)
@@ -91,162 +108,281 @@ class ListingController extends Controller
         }
     }
 
-    public function editSlide(Request $request, $id){
-
-            $validateData = $request->validate([
-                'title' => 'required|max:225',
-                'description' => 'required|max:225',
-                'is_main' => 'required',
-                'imgSlide' => 'image|mimes:jpeg,png,jpg,gif,svg',
-            ]);
-
-            if($validateData){
-                if ($request->hasFile('image')) {
-                    $file = $request->file('image');
-                    $extension = $file->getClientOriginalExtension();
-                    $filename = time() . "." . $extension;
-                    $file->move('img/', $filename);
-                    $img_path = "img/" . time() . "." . $extension;
-                    Slide::where('id', $id)->update([
-                        'title' => $request->input('title'),
-                        'description' => $request->input('description'),
-                        'is_main' => $request->input('is_main'),
-                        'img_path' => $img_path,
-
-                    ]);
-                    session()->flash('success', 'You have successfully update a post!');
+    public function editSlide(Request $request, $id)
+    {
 
 
+        $validateData = $request->validate([
+            'title' => 'required|max:225',
+            'description' => 'required|max:65535',
+            'is_main' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg',
+        ]);
 
-                    return redirect()->route('slidelisting');
-                }
-                else{
-                    Slide::where('id', $id)->update([
-                        'title' => $request->input('title'),
-                        'description' => $request->input('description'),
-                        'is_main' => $request->input('is_main'),
+        if ($validateData) {
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $extension = $file->getClientOriginalExtension();
+                $filename = time() . "." . $extension;
+                $file->move('img/', $filename);
+                $img_path = "img/" . time() . "." . $extension;
+                Slide::where('id', $id)->update([
+                    'title' => $request->input('title'),
+                    'description' => $request->input('description'),
+                    'is_main' => $request->input('is_main'),
+                    'img_path' => $img_path,
 
-                    ]);
-                    session()->flash('success', 'You have successfully update a post!');
+                ]);
+                session()->flash('success', 'You have successfully update a post!');
 
 
 
-                    return redirect()->route('slidelisting');
-                }
+                return redirect()->route('slidelisting');
+            } else {
+                Slide::where('id', $id)->update([
+                    'title' => $request->input('title'),
+                    'description' => $request->input('description'),
+                    'is_main' => $request->input('is_main'),
 
+                ]);
+                session()->flash('success', 'You have successfully update a post!');
+
+
+
+                return redirect()->route('slidelisting');
             }
-            else{
-
-            }
-
+        } else {
+            session()->flash('error', 'Sorry! There is something wrong with data!');
+            return redirect()->route('slidelisting');
+        }
     }
 
     // Category
 
-    public function categoryListing(){
+    public function categoryListing()
+    {
         $cate = Categories::all();
         return view('listing.listingCategory')->with('cates', $cate);
     }
 
-    public function categoryPostingForm(){
+    public function categoryPostingForm()
+    {
         return view('dashboard.category');
     }
 
-    public function postNewCategory(Request $request){
-        $category = new Categories();
-        $category->user_email = Auth::user()->email;
-        $category->title = $request->input('title');
-        $category->description = $request->input('desc');
+    public function postNewCategory(Request $request)
+    {
 
-        if($request->hasFile('image')){
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $extension;
-            $file->move('img/', $filename);
-            $filepath = '/img/' . $filename;
-            $category->img_path = $filepath;
+        if ($request->all()) {
+            $validateData = $request->validate([
+                'title' => 'required|max:255',
+                'desc' => 'required|max:65535',
+                'image' => 'required|mimes:jpeg,png,jpg,svg,gif',
+            ]);
 
-            session()->flash('success', 'You have post a new category!');
+            if ($validateData) {
+                $category = new Categories();
+                $category->user_email = Auth::user()->email;
+                $category->title = $request->input('title');
+                $category->description = $request->input('desc');
+
+                if ($request->hasFile('image')) {
+                    $file = $request->file('image');
+                    $extension = $file->getClientOriginalExtension();
+                    $filename = time() . '.' . $extension;
+                    $file->move('img/', $filename);
+                    $filepath = '/img/' . $filename;
+                    $category->img_path = $filepath;
+
+                    session()->flash('success', 'You have post a new category!');
+                }
+
+                $category->save();
+                return redirect()->route('categorylisting');
+            } else {
+                session()->flash('error', 'Sorry! There is something wrong with data!');
+                return redirect()->route('categorylisting');
+            }
+        } else {
+            session()->flash('error', 'Sorry! We could not get all data. Please reinsert again!');
+            return redirect()->route('categorylisting');
         }
-
-        $category->save();
-        return redirect()->route('categorylisting');
-
-
     }
 
-    public function approveCategory($id){
-        if(Categories::findOrFail($id)){
+    public function approveCategory($id)
+    {
+        if (Categories::findOrFail($id)) {
             Categories::where('id', $id)
-                        ->update([
-                            'is_approved' => 2
-                        ]);
+                ->update([
+                    'is_approved' => 2
+                ]);
 
             session()->flash('success', 'You have approved a category!');
             return redirect()->route('categorylisting');
         }
     }
-    public function blockCategory($id){
-        if(Categories::findOrFail($id)){
+    public function blockCategory($id)
+    {
+        if (Categories::findOrFail($id)) {
             Categories::where('id', $id)
-                        ->update([
-                            'is_approved' => 0
-                        ]);
+                ->update([
+                    'is_approved' => 0
+                ]);
             session()->flash('success', 'You have block a category!');
             return redirect()->route('categorylisting');
         }
     }
 
-    public function deleteCategory($id){
-        if(Categories::findOrFail($id)){
+    public function deleteCategory($id)
+    {
+        if (Categories::findOrFail($id)) {
             Categories::where('id', $id)
-                        ->delete();
+                ->delete();
             session()->flash('success', 'You have successfully deleted a category.');
             return redirect()->route('categorylisting');
         }
     }
 
-    public function getCategory($id){
-        if(request()->ajax()){
+    public function getCategory($id)
+    {
+        if (request()->ajax()) {
             $data = Categories::findOrFail($id);
-            return response()->json(['data'=> $data]);
+            return response()->json(['data' => $data]);
         }
     }
 
-    public function editCategory(Request $request, $id){
-        if($request->all()){
-            $validateData = $request->validate([
-                'title' => 'required|max:255',
-                'description' =>  'required|max:255',
-                'image' => 'mimes:jpeg,png,jpg,gif,svg',
-            ]);
+    public function editCategory(Request $request, $id)
+    {
 
-            if($validateData){
-                if($request->hasFile('image')){
-                    $file = $request->file('image');
-                    $extension = $file->getClientOriginalExtension();
-                    $filename = time() . '.' . $extension;
-                    $img_path = '/img/' . $filename;
-                    $file->move('/img', $filename);
-                    Categories::where('id', $id)
-                                ->update([
-                                    'title' => $request->input('title'),
-                                    'description' => $request->input('description'),
-                                    'img_path' => $img_path
-                                ]);
-                    session()->flash('success', 'You have updated a category!');
-                    return redirect()->route('categorylisting');
-                }
-                else{
-                    Categories::where('id', $id)
-                                ->update([
-                                    'title' => $request->input('title'),
-                                    'description' => $request->input('description')
-                                ]);
-                    session()->flash('success', 'You have updated a category');
-                    return redirect()->route('categorylisting');
-                }
+        $validateData = $request->validate([
+            'title' => 'required|max:255',
+            'description' =>  'required|max:65535',
+            'image' => 'mimes:jpeg,png,jpg,gif,svg',
+        ]);
+
+        if ($validateData) {
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $extension = $file->getClientOriginalExtension();
+                $filename = time() . '.' . $extension;
+                $img_path = '/img/' . $filename;
+                $file->move('/img', $filename);
+                Categories::where('id', $id)
+                    ->update([
+                        'title' => $request->input('title'),
+                        'description' => $request->input('description'),
+                        'img_path' => $img_path
+                    ]);
+                session()->flash('success', 'You have updated a category!');
+                return redirect()->route('categorylisting');
+            } else {
+                Categories::where('id', $id)
+                    ->update([
+                        'title' => $request->input('title'),
+                        'description' => $request->input('description')
+                    ]);
+                session()->flash('success', 'You have updated a category');
+                return redirect()->route('categorylisting');
             }
+        } else {
+            session()->flash('error', 'Sorry! There is something wrong with data!');
+            return redirect()->route('slidelisting');
+        }
+    }
+
+    //User listing
+
+    public function listingUser()
+    {
+        $user = User::all();
+        return view('listing.listingUser')->with('users', $user);
+    }
+
+    public function add_admin($id)
+    {
+        if (User::findOrFail($id)) {
+            User::where('id', $id)
+                ->update([
+                    'is_admin' => 1
+                ]);
+            session()->flash('success', 'Successfully! Update to admin.');
+            return redirect()->route('listingUser');
+        } else {
+            session()->flash('error', 'Fail to Update User!');
+            return redirect()->route('listingUser');
+        }
+    }
+
+    public function add_user($id)
+    {
+        if (User::findOrFail($id)) {
+            User::where('id', $id)
+                ->update([
+                    'is_admin' => 0
+                ]);
+            session()->flash('success', 'Successfully! Update to user.');
+            return redirect()->route('listingUser');
+        }
+        session()->flash('error', 'Fail to Update User!');
+        return redirect()->route('listingUser');
+    }
+
+    public function block_user($id)
+    {
+        if (User::findOrFail($id)) {
+            User::where('id', $id)
+                ->update([
+                    'is_admin' => -1
+                ]);
+            session()->flash('success', 'Successfully! Block the user.');
+            return redirect()->route('listingUser');
+        }
+        session()->flash('error', 'Fail to Update User!');
+        return redirect()->route('listingUser');
+    }
+
+    public function delete_user($id){
+        if(User::findOrFail($id)){
+            User::where('id', $id)->delete();
+            session()->flash('success', 'Successfully! Delete the user.');
+            return redirect()->route('listingUser');
+        }
+        else{
+            session()->flash('error', 'There is something wrong occur. Please try again!');
+            return redirect()->route('listingUser');
+        }
+    }
+
+    public function getUserdata($id){
+        if(request()->ajax()){
+            $data = User::findOrFail($id);
+            return response()->json(['data' => $data]);
+        }
+    }
+
+    public function editUser(Request $request, $id){
+
+        $validateData = $request->validate([
+            'firstname' => 'required|max:225',
+            'lastname' => 'required|max:225',
+            'phone' => 'required|integer|digits_between:8,20',
+            'user-email' => 'required|email|max:225',
+        ]);
+
+        if($validateData){
+            User::where('id', $id)
+                ->update([
+                    'fname' => $request->input('firstname'),
+                    'lname' => $request->input('lastname'),
+                    'phone' => $request->input('phone'),
+                    'email' => $request->input('user-email')
+                ]);
+            session()->flash('success', 'Successfully, Update a user.');
+            return redirect()->route('listingUser');
+        }
+        else{
+            session()->flash('error', 'Fail to update a user.');
+            return redirect()->route('listingUser');
         }
     }
 }

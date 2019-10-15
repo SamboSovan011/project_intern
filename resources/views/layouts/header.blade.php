@@ -62,6 +62,7 @@
                         </a>
                         @if(Auth::user()->is_admin == 1)
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="{{route('userprofile')}}">My Profile</a>
                             <a class="dropdown-item" href="{{url('/admin/dashboard')}}">My Dashboard</a>
                                 <a class="dropdown-item" href="#">My Wish List</a>
                             <a class="dropdown-item" href="{{url('/logout')}}">Log out</a>
@@ -69,7 +70,7 @@
 
                         @else
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="#">My Profile</a>
+                        <a class="dropdown-item" href="{{route('userprofile')}}">My Profile</a>
                             <a class="dropdown-item" href="#">My Wish List</a>
                         <a class="dropdown-item" href="{{url('/logout')}}">Log out</a>
                         </div>

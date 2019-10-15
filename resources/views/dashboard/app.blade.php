@@ -62,6 +62,9 @@
 
     <!-- jQuery Knob Chart -->
     <script src="{{asset('bower_components/jquery-knob/dist/jquery.knob.min.js')}}"></script>
+    <!-- Morris.js charts -->
+    <script src="{{asset('bower_components/raphael/raphael.min.js')}}"></script>
+    <script src="{{asset('bower_components/morris.js/morris.min.js')}}"></script>
 
 
     <div class="wrapper">
@@ -407,6 +410,7 @@
                             <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Trash</a></li>
                         </ul>
                     </li>
+                    <li class="{{(request()->routeIs('listingUser')) ? 'active' : ''}}"><a href="{{route('listingUser')}}"><i class="fa fa-book"></i> <span>User Listing</span></a></li>
                     <li class="{{(request()->routeIs('categorylisting')) ? 'active' : ''}}"><a href="{{route('categorylisting')}}"><i class="fa fa-book"></i> <span>Category</span></a></li>
                     <li class="{{(request()->routeIs('slidelisting') || request()->routeIs('slide')) ? 'active' : ''}}">
                         <a href="{{route('slidelisting')}}"><i class="fa fa-book"></i> <span>Slide</span></a></li>
@@ -630,9 +634,7 @@
     <!-- ./wrapper -->
     <!-- Bootstrap 3.3.7 -->
     <script src="{{asset('bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
-    <!-- Morris.js charts -->
-    <script src="{{asset('bower_components/raphael/raphael.min.js')}}"></script>
-    <script src="{{asset('bower_components/morris.js/morris.min.js')}}"></script>
+
     <!-- Sparkline -->
     <script src="{{asset('bower_components/jquery-sparkline/dist/jquery.sparkline.min.js')}}"></script>
     <!-- jvectormap -->

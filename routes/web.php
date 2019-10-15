@@ -20,6 +20,10 @@ Route::post('/signup', ['as' => 'SignUp', 'uses' => 'HomeController@SignUp']);
 Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('/checkEmail', ['as' => 'checkEmail', 'uses' => 'checkEmailController@checkEmailAvailable']);
+// View Profile
+Route::get('/userprofile', ['as' => 'userprofile', 'uses' => 'HomeController@showUserProfile']);
+Route::post('/updateProfile/{id}', ['as' => 'updateProfile', 'uses' => 'HomeController@updateProfile']);
+
 
 // Route admin
 Route::get('/admin/login', 'AdminController@showadminloginform');
@@ -44,5 +48,13 @@ Route::prefix('/admin/dashboard')->group(function(){
     Route::get('/deleteCategory/{id}', ['as' => 'deleteCategory', 'uses' => 'ListingController@deleteCategory']);
     Route::get('/getCategory/{id}', 'ListingController@getCategory')->name('getCategoryData');
     Route::post('/editCategory/{id}', ['as' => 'editCategory', 'uses' => 'ListingController@editCategory']);
+    //Route listingUser
+    Route::get('/listingUser', ['as' => 'listingUser', 'uses' => 'ListingController@listingUser']);
+    Route::get('/add_admin/{id}', ['as' => 'add_admin', 'uses' => 'ListingController@add_admin']);
+    Route::get('/add_user/{id}', ['as' => 'add_user', 'uses' => 'ListingController@add_user']);
+    Route::get('/block_user/{id}', ['as' => 'block_user', 'uses' => 'ListingController@block_user']);
+    Route::get('/delete_user/{id}', ['as' => 'delete_user', 'uses' => 'ListingController@delete_user']);
+    Route::get('/getUserData/{id}', 'ListingController@getUserdata')->name('getUserData');
+    Route::post('/editUser/{id}', ['as' => 'editUser', 'uses' => 'ListingController@editUser']);
 });
 

@@ -216,6 +216,13 @@
     <!-- /.modal -->
 </section>
 <!-- /.content -->
+@if (count($errors) > 0)
+<script>
+    $( document ).ready(function() {
+            $('#editForm').modal('show');
+        });
+</script>
+@endif
 <script>
     $(function () {
         $('#example2').DataTable({
