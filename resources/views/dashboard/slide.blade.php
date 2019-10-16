@@ -17,11 +17,23 @@
         <li class="active">Post New Slide</li>
     </ol>
 </section>
+
 <section id="form">
     <div class="box box-primary">
         <div class="box-header with-border">
             <h3 class="box-title">Slide For Banner</h3>
         </div>
+        <section>
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+        </section>
         <!-- /.box-header -->
         <!-- form start -->
         <form role="form" method="POST" action="{{route('postSlide')}}" enctype="multipart/form-data">
@@ -35,20 +47,6 @@
                 <div class="form-group">
                     <label for="exampleInputPassword1">Description</label>
                     <textarea class="form-control" name="desc" id="desc" cols="30" rows="10"></textarea>
-                </div>
-                <div class="form-group">
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="is_main" value="1" checked>
-                            This is the main slide.
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="is_main" value="0">
-                            No, this is the normal slide.
-                        </label>
-                    </div>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputFile">File input</label>

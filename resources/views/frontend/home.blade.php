@@ -45,21 +45,34 @@
 </style>
 <section id="slide">
     <div id="CarouselContent" class="carousel slide" data-ride="carousel">
+        @php
+        $i = 0;
+        $j = 0;
+        @endphp
+
         <ol class="carousel-indicators">
-            <li data-target="#CarouselContent" data-slide-to="0" class="active"></li>
-            <li data-target="#CarouselContent" data-slide-to="2"></li>
-            <li data-target="#CarouselContent" data-slide-to="1"></li>
+            @foreach ($slides as $slide)
+            <li id="{{$slide->id}}0" data-target="#CarouselContent" data-slide-to="{{$i}}" class="slide-list"></li>
+            @php
+            $i = $i+1
+            @endphp
+            @endforeach
         </ol>
+
         <div class="carousel-inner" role="listbox">
-            <div class="carousel-item active">
-                <img class="d-block img-fluid" src="img/kitchen1.jpg" alt="first image">
+            @foreach ($slides as $slide)
+            <div id="{{$slide->id}}" class="carousel-item" data-img="{{$j}}">
+                <img class="d-block img-fluid" src="{{$slide->img_path}}" alt="banner image">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>{{$slide->title}}</h5>
+                    <p>{{$slide->description}}</p>
+                </div>
             </div>
-            <div class="carousel-item">
-                <img class="d-block img-fluid" src="img/kitchen2.jpg" alt="first image">
-            </div>
-            <div class="carousel-item">
-                <img class="d-block img-fluid" src="img/kitchen3.jpg" alt="first image">
-            </div>
+            @php
+            $j = $j+1
+            @endphp
+
+            @endforeach
         </div>
         <div class="carousel-control-prev" href="#CarouselContent" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon"></span>
@@ -69,6 +82,8 @@
             <span class="carousel-control-next-icon"></span>
             <span class="sr-only">Next</span>
         </div>
+
+
     </div>
 </section>
 
@@ -79,86 +94,15 @@
             @foreach ($cates as $cate)
             <div class="col-md-4">
                 <div class="card m-3">
-                <img class="card-img-top img-fluid" src="{{$cate->img_path}}" alt="kitchen-furniture">
+                    <img class="card-img-top img-fluid" src="{{$cate->img_path}}" alt="kitchen-furniture">
                     <div class="card-body">
-                    <h5 class="card-title">{{$cate->title}}</h5>
+                        <h5 class="card-title">{{$cate->title}}</h5>
                         <hr>
-                    <p class="card-text">{{$cate->description}}</p>
+                        <p class="card-text">{{$cate->description}}</p>
                     </div>
                 </div>
             </div>
             @endforeach
-
-            {{-- <div class="col-md-4">
-                <div class="card m-3">
-                    <img class="card-img-top img-fluid" src="img/sink.png" alt="sink and kitchen taps">
-                    <div class="card-body">
-                        <h5 class="card-title">Sinks and Kitchen Taps</h5>
-                        <hr>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                            rhoncus in
-                            nisi et tincidunt. Phasellus semper lobortis magna, id lacinia enim hendrerit non. Nunc
-                            ultricies dictum augue, et lacinia metus imperdiet nec. </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card m-3">
-                    <img class="card-img-top img-fluid" src="img/appliance.png" alt="kitchen applainces">
-                    <div class="card-body">
-                        <h5 class="card-title">Kitchen Appliances</h5>
-                        <hr>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                            rhoncus in
-                            nisi et tincidunt. Phasellus semper lobortis magna, id lacinia enim hendrerit non. Nunc
-                            ultricies dictum augue, et lacinia metus imperdiet nec. </p>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-md-4">
-                <div class="card m-3">
-                    <img class="card-img-top img-fluid" src="img/accessories.png" alt="cooking-accessories">
-                    <div class="card-body">
-                        <h5 class="card-title">Cooking Accessories</h5>
-                        <hr>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                            rhoncus in
-                            nisi et tincidunt. Phasellus semper lobortis magna, id lacinia enim hendrerit non. Nunc
-                            ultricies dictum augue, et lacinia metus imperdiet nec. </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card m-3">
-                    <img class="card-img-top img-fluid" src="img/table-accessorie.png" alt="table dining accessories">
-                    <div class="card-body">
-                        <h5 class="card-title">Dining Table Accessories</h5>
-                        <hr>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                            rhoncus in
-                            nisi et tincidunt. Phasellus semper lobortis magna, id lacinia enim hendrerit non. Nunc
-                            ultricies dictum augue, et lacinia metus imperdiet nec. </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card m-3">
-                    <img class="card-img-top img-fluid" src="img/bakeware.png" alt="bakeware">
-                    <div class="card-body">
-                        <h5 class="card-title">Cookware and Bakeware</h5>
-                        <hr>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                            rhoncus in
-                            nisi et tincidunt. Phasellus semper lobortis magna, id lacinia enim hendrerit non. Nunc
-                            ultricies dictum augue, et lacinia metus imperdiet nec. </p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div> --}}
 
             <script>
                 $(document).ready(function(){
@@ -181,7 +125,19 @@
             });
             </script>
 </section>
+<script>
+    $(document).ready(function(){
+        var idI = $('.slide-list').attr('id');
+        var i = $('#'+idI).attr('data-slide-to');
+        var idM = $('.carousel-item').attr('id');
+        var j = $('#'+idM).attr('data-img');
+        if(i == '0' && j == '0'){
+            $('#'+idI).addClass('active');
+            $('#'+idM).addClass('active');
+        }
 
+    })
+</script>
 
 
 

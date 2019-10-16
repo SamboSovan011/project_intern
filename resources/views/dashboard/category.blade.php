@@ -17,11 +17,23 @@
         <li class="active">Post New Category</li>
     </ol>
 </section>
+
 <section id="form">
     <div class="box box-primary">
         <div class="box-header with-border">
             <h3 class="box-title">New Category</h3>
         </div>
+        <section>
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+        </section>
         <!-- /.box-header -->
         <!-- form start -->
         <form role="form" method="POST" action="{{route('postCategory')}}" enctype="multipart/form-data">

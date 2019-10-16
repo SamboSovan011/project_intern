@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Categories;
+use App\Slide;
 
 class HomeController extends Controller
 {
@@ -25,8 +26,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $slides = Slide::where('is_approved', 2)->get();
         $cates = Categories::where('is_approved', 2)->get();
-        return view('frontend.home', compact('cates'));
+        return view('frontend.home', compact('cates', 'slides'));
     }
 
     public function Signup(){

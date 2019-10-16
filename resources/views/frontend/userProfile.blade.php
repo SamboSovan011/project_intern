@@ -107,7 +107,8 @@
                 <hr>
             </h3>
 
-            <form method="POST" action="{{route('updateProfile', ['id' => Auth::user()->id])}}" enctype="multipart/form-data">
+            <form method="POST" action="{{route('updateProfile', ['id' => Auth::user()->id])}}"
+                enctype="multipart/form-data">
                 @csrf
                 <div class="form-group row">
                     <label for="userEmail" class="col-sm-4 col-form-label">Email:</label>
@@ -146,12 +147,46 @@
         </div>
         <div class="col-md-7">
             <div class="button-link">
-                <button type="button" class="btn btn-default btn-change-pass">Change Password</button>
+                <button type="button" class="btn btn-default btn-change-pass" data-toggle="modal"
+                    data-target="#changePassModal">Change Password</button>
 
             </div>
             <div class="button-link-2">
                 <button type="button" class="btn btn-default btn-wish-list">Wish List</button>
             </div>
+
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="changePassModal" tabindex="-1" role="dialog" aria-labelledby="changePassModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="changePassModalLabel">Change Password</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST" action="" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="password" name="current-pass" class="form-control" placeholder="Current Password">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="new-pass" class="form-control" placeholder="New Password">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="confirm-pass" class="form-control" placeholder="Confirm Password">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
 
         </div>
     </div>

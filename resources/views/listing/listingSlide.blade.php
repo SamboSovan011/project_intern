@@ -79,7 +79,6 @@
                                 <th>User Emails</th>
                                 <th>Title</th>
                                 <th>Description</th>
-                                <th>Is_Main Slide</th>
                                 <th>Status</th>
                                 <th></th>
                             </tr>
@@ -95,13 +94,6 @@
                                 </td>
                                 <td>{{$slide->title}}</td>
                                 <td>{{$slide->description}}</td>
-                                <td>
-                                    @if($slide->is_main == 1)
-                                    Yes
-                                    @else
-                                    No
-                                    @endif
-                                </td>
                                 <td>
                                     @if($slide->is_approved == 2)
                                     <span class="label label-success">Approved</span>
@@ -150,7 +142,6 @@
                                 <th>User Emails</th>
                                 <th>Title</th>
                                 <th>Description</th>
-                                <th>Is_Main Slide</th>
                                 <th>Status</th>
                                 <th></th>
                             </tr>
@@ -203,20 +194,6 @@
                                 <label>Description</label>
                                 <textarea name="description" class="form-control" rows="3" id="slideDesc"
                                     placeholder="Slide Description"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="is_main" id="is-main" value="1" checked>
-                                        This is the main slide.
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="is_main" id="not-main" value="0">
-                                        No, this is normal slide.
-                                    </label>
-                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputFile">File input</label>
@@ -281,14 +258,6 @@
                     $('#slideTitle').val(html.data.title);
                     $('#slideDesc').val(html.data.description);
                     $('#store_img').attr("src", "/"+html.data.img_path);
-                    if(html.data.is_main == 1){
-                        $('#not-main').attr("checked", false);
-                        $('#is-main').attr("checked", "checked");
-                    }
-                    else{
-                        $('#not-main').attr("checked", "checked");
-                        $('#is-main').attr("checked", false);
-                    }
                 }
             })
 

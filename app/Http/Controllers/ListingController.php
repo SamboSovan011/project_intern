@@ -29,7 +29,6 @@ class ListingController extends Controller
             $validateData = $request->validate([
                 'title' => 'required|max:255',
                 'desc' => 'required|max:655535',
-                'is_main' => 'required',
                 'image' => 'required|mimes:jpeg,png,jpg,svg,gif',
             ]);
 
@@ -37,7 +36,6 @@ class ListingController extends Controller
                 $slide = new Slide();
                 $slide->user_email = Auth::user()->email;
                 $slide->title = $request->input('title');
-                $slide->is_main = $request->input('is_main');
                 $slide->description = $request->input('desc');
 
                 if ($request->hasFile('image')) {
@@ -54,10 +52,6 @@ class ListingController extends Controller
                 }
 
                 $slide->save();
-                return redirect()->route('slidelisting');
-            } else {
-
-                session()->flash('error', 'Sorry! There is something wrong with data!');
                 return redirect()->route('slidelisting');
             }
         } else {
@@ -115,7 +109,6 @@ class ListingController extends Controller
         $validateData = $request->validate([
             'title' => 'required|max:225',
             'description' => 'required|max:65535',
-            'is_main' => 'required',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
@@ -129,31 +122,21 @@ class ListingController extends Controller
                 Slide::where('id', $id)->update([
                     'title' => $request->input('title'),
                     'description' => $request->input('description'),
-                    'is_main' => $request->input('is_main'),
                     'img_path' => $img_path,
 
                 ]);
                 session()->flash('success', 'You have successfully update a post!');
-
-
 
                 return redirect()->route('slidelisting');
             } else {
                 Slide::where('id', $id)->update([
                     'title' => $request->input('title'),
                     'description' => $request->input('description'),
-                    'is_main' => $request->input('is_main'),
-
                 ]);
                 session()->flash('success', 'You have successfully update a post!');
 
-
-
                 return redirect()->route('slidelisting');
             }
-        } else {
-            session()->flash('error', 'Sorry! There is something wrong with data!');
-            return redirect()->route('slidelisting');
         }
     }
 
@@ -198,9 +181,6 @@ class ListingController extends Controller
                 }
 
                 $category->save();
-                return redirect()->route('categorylisting');
-            } else {
-                session()->flash('error', 'Sorry! There is something wrong with data!');
                 return redirect()->route('categorylisting');
             }
         } else {
@@ -284,9 +264,6 @@ class ListingController extends Controller
                 session()->flash('success', 'You have updated a category');
                 return redirect()->route('categorylisting');
             }
-        } else {
-            session()->flash('error', 'Sorry! There is something wrong with data!');
-            return redirect()->route('slidelisting');
         }
     }
 
@@ -380,9 +357,6 @@ class ListingController extends Controller
             session()->flash('success', 'Successfully, Update a user.');
             return redirect()->route('listingUser');
         }
-        else{
-            session()->flash('error', 'Fail to update a user.');
-            return redirect()->route('listingUser');
-        }
+
     }
 }
