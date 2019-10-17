@@ -56,5 +56,9 @@ Route::prefix('/admin/dashboard')->group(function(){
     Route::get('/delete_user/{id}', ['as' => 'delete_user', 'uses' => 'ListingController@delete_user']);
     Route::get('/getUserData/{id}', 'ListingController@getUserdata')->name('getUserData');
     Route::post('/editUser/{id}', ['as' => 'editUser', 'uses' => 'ListingController@editUser']);
+    //Route Post products
+    Route::resource('post', 'PostController');
+    Route::get('/editpost/{id}', 'PostController@getdata')->name('getpostdata');
+    Route::post('/updatepost/{id}', 'PostController@updatepost')->name('update.post');
 });
 

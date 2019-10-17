@@ -413,7 +413,9 @@
                     <li class="{{(request()->routeIs('listingUser')) ? 'active' : ''}}"><a href="{{route('listingUser')}}"><i class="fa fa-book"></i> <span>User Listing</span></a></li>
                     <li class="{{(request()->routeIs('categorylisting')) ? 'active' : ''}}"><a href="{{route('categorylisting')}}"><i class="fa fa-book"></i> <span>Category</span></a></li>
                     <li class="{{(request()->routeIs('slidelisting') || request()->routeIs('slide')) ? 'active' : ''}}">
-                        <a href="{{route('slidelisting')}}"><i class="fa fa-book"></i> <span>Slide</span></a></li>
+                    <a href="{{route('slidelisting')}}"><i class="fa fa-book"></i> <span>Slide</span></a></li>
+
+                    <li class="{{(request()->routeIs('post.index')) ? 'active' : ''}}"><a href="{{route('post.index')}}"><i class="fa fa-book"></i> <span>Post Products</span></a></li>
                 </ul>
             </section>
             <!-- /.sidebar -->
